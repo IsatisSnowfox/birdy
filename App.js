@@ -1,57 +1,40 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * Birdy
+ * https://github.com/stephecloutier/birdy
+ * Started on 03/01/18
  */
 
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import {Form} from './src/components/Form'
-import reducers from './src/reducers'
-import { Header } from './src/components/Header';
+import {connect} from 'react-redux'
+import * as firebase from 'firebase';
 
+import firebaseConfig from './settings';
+import Login from './src/components/Login';
+import Home from './src/components/Home';
 
+let firebaseApp;
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+class App extends Component {
+    componentDidMount() {
+        firebaseApp = firebase.initializeApp(firebaseConfig);
+    }
 
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={createStore(reducers)}>
-        <View style={styles.container}>
-          <Header />
-          <Text style={styles.welcome}>
-            Birdy
-          </Text>
-          <Form />
-        </View>
-      </Provider>
-    );
-  }
+    
+    render() {
+        if (!this.props.isLoggedIn) {
+            console.log('Tu es connecté bravo');
+            return <Login />;
+            
+        } else {
+            return <Home />;
+        }
+    }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn
+    };
+}
+
+export default connect(mapStateToProps)(App);

@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
 import {View, Button, Text} from 'react-native';
 import {Field} from './Field';
+import {connect} from 'react-redux'
+
+import * as actions from '../../actions/';
 
 class Form extends Component {
+    onButtonPress() {
+        this.props.logIn();
+        console.log(this.props);
+        //T KONAIKTAI
+    }
     render() {
         return(
             <View>
@@ -25,4 +33,12 @@ class Form extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        email: state.email,
+        password: state.password,
+    }
+}
+
 export {Form};
+connect(mapStateToProps, actions)(Form)

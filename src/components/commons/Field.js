@@ -1,8 +1,7 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {TextInput, Text, View} from 'react-native';
 
 const Field = ({label,value,onChangeText,placeholder,secureTextEntry}) => {
-
     return(
         <View>
             <Text>{label}</Text>
@@ -17,4 +16,5 @@ const Field = ({label,value,onChangeText,placeholder,secureTextEntry}) => {
     )
 }
 
-export {Field};
+//export {Field};
+export default Field;
