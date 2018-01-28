@@ -2,9 +2,13 @@
 
 import {combineReducers} from 'redux';
 import auth from './Auth';
+import register from './Register';
+import navReducer from './Navigation';
 
 const rootReducer = combineReducers({
-    auth
+    auth,
+    register,
+    nav: navReducer,
 });
 
 export default rootReducer;

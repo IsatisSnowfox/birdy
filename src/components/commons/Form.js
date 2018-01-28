@@ -8,8 +8,6 @@ import * as actions from '../../actions/';
 class Form extends Component {
     onButtonPress() {
         this.props.logIn();
-        console.log(this.props);
-        //T KONAIKTAI
     }
     render() {
         return(

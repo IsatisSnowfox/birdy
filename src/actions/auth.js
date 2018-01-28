@@ -1,9 +1,12 @@
 import * as firebase from 'firebase';
 
+import {NavigationActions} from 'react-navigation';
+
 export const loginUser = (email, password) => dispatch => {
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((response) => {
-            return dispatch(loginUserSuccess(response));
+            return (dispatch(loginUserSuccess(response)),
+                    dispatch(NavigationActions.navigate({routeName: 'DrawerStack'})));
         })
         .catch((error) => {
             return dispatch(loginUserFail(error));
@@ -24,28 +27,25 @@ export const loginUserFail = (error) => {
     }
 }
 
-
-
-// user creation actions:
-/*
-export const createUser = (email, pass) => dispatch => {
-    firebase.auth().createUserWithEmailAndPassword(email, pass)
-    .then((resp) => {
-        return dispatch(createUserSuccess(resp));
-    }) 
-    .catch((error) => disptach(createUserFail));
+export const logoutUser = () => (dispatch) => {
+    firebase.auth().signOut()
+        .then(() => {
+            const actionToDispatch = NavigationActions.reset({
+                index: 0,
+                key: null,  // black magic
+                actions: [NavigationActions.navigate({ routeName: 'LoginStack' })]
+            });
+            return(dispatch(signOutUser()),
+                    dispatch(actionToDispatch));
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }
-export const createUserSuccess = (resp) => {
+
+export const signOutUser = () => {
     return {
-        type: CREATE_USER_SUCCESS,
-        user: resp,
+        type: "SIGN_OUT"
     }
 }
 
-export const createUserFail = (error) => {
-    return {
-        type: CREATE_USER_FAIL,
-        error
-    }
-}
-*/

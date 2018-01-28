@@ -1,20 +1,18 @@
 const defaultState = {
     isLoggedIn: false,
-    email: '',
-    password: ''
 }
 
 
 const auth = (state = defaultState, action) => {
     switch(action.type) {
         case 'LOGIN':
-            console.log(action);
             const { user: { uid: userId} } = action;
             return { ...state, isLoggedIn: true, userId }
         case 'LOGIN_HAS_FAILED':
-            console.log('erreur lors de l\'authentification');
             const { error } = action;
-            return { ...state, isLoggedIn: false, error }
+            return { ...state, isLoggedIn: false, error };
+        case 'SIGN_OUT':
+            return {...state, isLoggedIn: false, userId: undefined, email: undefined, password: undefined};
         default:
             return state;
     }

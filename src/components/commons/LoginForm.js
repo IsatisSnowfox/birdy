@@ -7,37 +7,35 @@ import Error from './Error';
 import {loginUser} from '../../actions/auth';
 
 class LoginForm extends Component {
-    
     constructor(props) {
-        super(props);
-        this.state = {}; 
+        super(props)
+        this.user = {
+            email: '',
+            password: '',
+        }
     }
-
-
     onButtonPress(){
-        this.props.loginUser(this.props.auth.email, this.props.auth.password);
+        console.log("Putain de putain")
+        this.props.loginUser(this.user.email, this.user.password);
     }
 
     render() {
         return(
             <View>
-                <Text>
-                    {this.props.formText}
-                </Text>
                 <Field
                     label='Email'
-                    placeholder='johndoe@birdy.be'
-                    value={this.props.email}
+                    placeholder='jeanvaljean@birdy.be'
+                    value='isatis.snowfox@gmail.com'
                     onChangeText={(text) => {
-                        this.props.auth.email = text;
+                        this.user.email = text;
                     }}
 
                 />
                 <Field
                     secureTextEntry
                     label='Mot de passe'
-                    value={this.props.password}
-                    onChangeText={text => this.props.auth.password = text}
+                    value='azerty'
+                    onChangeText={text => this.user.password = text}
                 />
                 <View>
                     <Button
@@ -50,24 +48,8 @@ class LoginForm extends Component {
         )
     }
 }
-/*
-const mapStateToProps = (state) => {
-    return {
-        email: state.email,
-        password: state.password,
-    }
-}*/
-
-/*
-const mapDispatchToProps = (dispatch) => {
-    return {
-        fetchData: (url) => dispatch(itemsFetchData(url))
-    };
-};
-*/
 
 function mapStateToProps(state) {
-    console.log(state);
     return state;
 }
 

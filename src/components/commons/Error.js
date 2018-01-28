@@ -5,9 +5,14 @@ import {View, Text} from 'react-native';
 class Error extends Component {
     render() {
         console.log(this.props);
-        if(typeof this.props.error !== "undefined") {
+        if(typeof this.props.state.auth.error !== "undefined") {
             return (
                 <Text>{this.props.error.message}</Text>
+            );
+        }
+        if(typeof this.props.state.register.error !== "undefined") {
+            return (
+                <Text>{this.props.state.register.error.message}</Text>
             );
         }
         else {
@@ -18,7 +23,7 @@ class Error extends Component {
 
 function mapStateToProps(state) {
     return ({
-        error: state.auth.error,
+        state
     });
 }
 

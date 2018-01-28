@@ -5,12 +5,11 @@
  */
 
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
-import * as firebase from 'firebase';
 
+import * as firebase from 'firebase';
 import firebaseConfig from './settings';
-import Login from './src/components/Login';
-import Home from './src/components/Home';
+
+import ReduxNavigation from './src/navigators/ReduxNav';
 
 let firebaseApp;
 
@@ -21,20 +20,8 @@ class App extends Component {
 
     
     render() {
-        if (!this.props.isLoggedIn) {
-            console.log('Tu es connecté bravo');
-            return <Login />;
-            
-        } else {
-            return <Home />;
-        }
+        return <ReduxNavigation />;
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isLoggedIn: state.auth.isLoggedIn
-    };
-}
-
-export default connect(mapStateToProps)(App);
+export default App;
